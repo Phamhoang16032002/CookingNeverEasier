@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-200">
+<head>
+  <meta charset="UTF-8">
+  <title><%= locals.title || "Cooking Never Easier" %></title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+  <link rel="shortcut icon" href="img/cne.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="/css//base.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<header class="header">
+    <div class="grid">
+        <% if (user != undefined) { %>
+        <nav class="header__navbar">
+            <ul class="header__navbar-list">
+                <% if (user != undefined) { %>
+                    <% if(user.name !='admin' ) { %>
+                        <li class="header__navbar-item header__navbar-item--sperate header__navbar-item--has-qr">
+                            <a href="/home" class="nav-link px-2 link-secondary">Home</a>
+                        </li>
+                        <li class="header__navbar-item header__navbar-item--sperate">
+                            <a href="/submit-recipe" class="nav-link px-2 link-secondary">Submit</a>
+                        </li>
+                        <li class="header__navbar-item">
+                            <a href="/yourRecipe" class="nav-link px-2 link-secondary">YourRecipe</a>
+                        </li>
+                    <% } %>
+                    <% if(user.name =='admin' ) { %>
+                        <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--sperate">
+                            <a href="/home" class="nav-link px-2 link-secondary">Home</a>
+                        </li>
+                        <li class="header__navbar-item">
+                            <a href="/admit" class="nav-link px-2 link-secondary">Admit</a>
+                        </li>
+                        <li class="header__navbar-item">
+                            <a href="/manage" class="nav-link px-2 link-secondary">Manage</a>
+                        </li>
+                    <% } %>
+                <% } %>
+            </ul>
+        <% } %>               
+            <% if(user != undefined) { %>
+                    <ul class="header__navbar-list">
+                        <li class="header__navbar-item header__navbar-item--has-notify">
+                            <a href="" class="header__navbar-item-link">
+                                <i class="header_navbar-icon fa-solid fa-circle-plus"></i>
+                                Thêm
+                            </a>
+                        </li>
+                        <li class="header__navbar-item">
+                            <a href="" class="header__navbar-item-link">
+                                <i class="header_navbar-icon fa-solid fa-circle-question"></i>
+                                Trợ giúp
+                            </a>
+                        </li>
+                        <li class="header__navbar-item header__navbar-user">
+                            <img src="<%= user.picture %>" alt="" class="header__navbar-user-img" width="100">
+                            <a href="" class="header__navbar-item-link"><%- user.name %> </a>
+                            <span class="header__navbar-user-name"></span>
+                                <ul class="header__navbar-user-menu">
+                                    <li class="header__navbar-user-item">
+                                        <a  href="/profile" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">Tài khoản của tôi</a>
+                                    </li>
+                                    <li class="header__navbar-user-item header__navbar-user-item-sperarate ">
+                                        <a  href="/logout" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">Đăng xuất</a>
+                                    </li>
+                                    </ul>
+                                  </li>
+                    </ul>
+            <% } %>
+        </nav>
+
+        <!-- Header with search -->
+        <div class="header-with-search">
+            <div class="header__logo">
+                <a href="/home" class="header__logo-link">
+                    <img src="/img/cneLogo.png" alt="" class="header__logo-pic">
+                </a>
+            </div>
+                  
+            <div class="header__search">
+                <form method="POST" action="/search">
+                    <input type="search"  name ="searchTerm" class="header__search-input" placeholder=" Tìm kiếm công thức">
+                        <button class="header__search-btn">
+                            <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
+                        </button>
+                </form>
+            </div>
+                  
+            <!-- CArt layout -->
+            <div class="header__cart">
+                <div class="header__cart-warp">
+                    <span class="header__cart-notice">8</span>
+                        <i class="header__cart-icon fa-solid fa-heart"></i>
+                            <!-- NO cart: header__cart-list--no-cart -->
+                            <div class="header__cart-list ">
+                                <img src="./assets/img/no_cart.jpg" alt="" class="header__cart-no-cart-img">
+                                <span class="header__cart-list-no-cart-msg"> 
+                                    Chưa có công thức
+                                </span>
+                  
+                                <h4 class="header__cart-heading">Công thức đã thêm</h4>
+                                    <ul class="header__cart-list-item">
+                                        <li class="header__cart-item">
+                                            <img src="./assets/img/1653816524379ame1.jpg" alt="" class="header__cart-img">
+                                            <div class="header__cart-item-info">
+                                                <div class="header__cart-item-head">
+                                                    <h5 class="header__cart-item-name">New Recipe 2</h5>
+                                                </div>
+                                                <div class="header__cart-item-body">
+                                                    <span class="header__cart-item-description">American</span>
+                                                    <span class="header__cart-item-remove">Xóa</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                  
+                            </div>
+                </div>
+                        
+            </div>
+        </div>
+        <% if(user == undefined) { %>
+            <a  href="/login" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">Login</a>
+        <% } %>
+    </div>  
+    
+</header>
+                
